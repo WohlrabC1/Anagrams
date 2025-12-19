@@ -1,0 +1,63 @@
+"""
+project draft
+"""
+
+import random
+
+anagrams_sample = ["ocean", "melon", "creative", "resistance", "orchestra", "cheater",
+                   "elbow", "silent", "repaint", "rescued", "largely", "ripples", "bluest",
+                   "saltier", "section", "senator", "danger", "doom", "silence", "thickens",
+                   "sister", "sailed"]
+
+final_anagrams = ['canoe', 'lemon', 'reactive', 'ancestries', 'carthorse', 'teacher',
+                 'below', 'listen', 'painter', 'secured', 'allergy', 'slipper', 'subtle',
+                 'realist', 'notices', 'treason', 'ranged', 'mood', 'license', 'kitchens',
+                 'resist', 'ideals']
+
+tries = []
+def guess_checker(string):
+    letters = {}
+    try:
+        for i, v in enumerate(string):
+            if v not in letters:
+                letters[v] = 1
+            elif v in letters:
+                letters[v] += 1
+    except ValueError:
+        return letters
+    return letters
+        
+    
+def anagram_generator(lst):
+    a = random.choice(lst)
+    ct = 0
+    
+    guess = input(f"Your word is {a}. Enter an anagram: ")
+            
+    while True:
+        if guess_checker(a) == guess_checker(guess) and guess != a:
+            if guess in final_anagrams:
+                print("you win!")
+                ct += 1      
+                break
+            elif guess not in final_anagrams:
+                print("You did not get the word. Please try again!")
+                ct += 1
+                guess = input(f"Your word is {a}. Enter an anagram: ")
+                    
+        elif guess == a:
+            print('You entered the same word, that is cheating!')
+            ct +=1
+            guess = input(f"Your word is {a}. Enter an anagram: ")
+        else:
+            print("You did not get the word. Please try again!")
+            ct += 1
+            guess = input(f"Your word is {a}. Enter an anagram: ")
+            
+    tries.append(ct)
+    print(f"it took you {tries} tries to get the word.")
+            
+    
+    
+if __name__ == "__main__":
+    anagram_generator(anagrams_sample)
